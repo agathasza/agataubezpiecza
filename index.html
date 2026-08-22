@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agata Szczęśniak — Agent Ubezpieczeniowy | Ubezpieczenia z ludzką twarzą</title>
+  <meta name="description" content="Pomagam wybrać ubezpieczenie, które faktycznie ma sens — bez żargonu i nachalnej sprzedaży. Życie, zdrowie, dom, auto i firma. Odpowiadam w 1-3 dni robocze.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#1F4D3D">
+  <style>
+/* =====================================================================
+   Agencja Ubezpieczeniowa Agata Szczęśniak — style.css
+   Design system: tokens → base → layout → components → utilities
+   Self-hosted fonts, no external requests, no tracking.
+   ===================================================================== */
+
+/* ---------- Fonts (self-hosted, Polish diacritics included) ---------- */
+@font-face {
+  font-family: "Fraunces Display";
+  src: url("assets/fonts/Fraunces-Display.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Work Sans";
+  src: url("assets/fonts/WorkSans-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------------------------- Tokens ---------------------------- */
+:root {
+  /* Color: warm paper + deep pine + honey accent (deliberately not the
+     cream/terracotta pairing that reads as generic — green ties to
+     growth & stability, honey stands in for human warmth) */
+  --paper: #F7F2E7;
+  --paper-card: #FDFBF6;
+  --ink: #24291F;
+  --ink-soft: #565C4C;
+  --ink-faint: #8A8F7C;
+  --forest: #1F4D3D;
+  --forest-dark: #16382A;
+  --forest-tint: #E3EAE1;
+  --honey: #D98F2B;
+  --honey-dark: #B5721B;
+  --honey-ink: #98590C; /* AA-safe (4.99:1) for small text on paper background */
+  --line: #E4DCC7;
+  --line-on-forest: rgba(247, 242, 231, 0.18);
+
+  --font-display: "Fraunces Display", Georgia, "Iowan Old Style", serif;
+  --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.5rem, 1.35rem + 0.8vw, 1.875rem);
+  --text-2xl: clamp(1.875rem, 1.5rem + 1.6vw, 2.625rem);
+  --text-3xl: clamp(2.25rem, 1.6rem + 2.8vw, 3.375rem);
+  --text-hero: clamp(2.75rem, 1.9rem + 4vw, 4.5rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
+
+  --shadow-soft: 0 2px 6px rgba(36, 41, 31, 0.05), 0 10px 28px rgba(36, 41, 31, 0.06);
+  --container: 1120px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------- Reset ---------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; padding: 0; }
+button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+input, textarea { font: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--honey);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------------------------- Type ---------------------------- */
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--forest-dark);
+}
+h1 { font-size: var(--text-hero); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+p { color: var(--ink-soft); }
+p + p { margin-top: var(--space-4); }
+.lede { font-size: var(--text-lg); color: var(--ink-soft); }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--honey-ink);
+  margin-bottom: var(--space-3);
+}
+
+/* ---------------------------- Layout ---------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+.section { padding-block: var(--space-12); }
+.section--tight { padding-block: var(--space-8); }
+.section--forest { background: var(--forest); color: #F7F2E7; }
+.section--tint { background: var(--forest-tint); }
+.section--forest h1, .section--forest h2, .section--forest h3 { color: #FBF8F0; }
+.section--forest p { color: rgba(247, 242, 231, 0.8); }
+
+.grid { display: grid; gap: var(--space-6); }
+@media (min-width: 760px) {
+  .grid--2 { grid-template-columns: 1fr 1fr; }
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 560px) and (max-width: 759px) {
+  .grid--3 { grid-template-columns: 1fr 1fr; }
+}
+
+.stack { display: flex; flex-direction: column; }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+
+/* ---------------------------- Header ---------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(247, 242, 231, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-4);
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--forest-dark);
+  letter-spacing: -0.01em;
+}
+.wordmark span { color: var(--honey-dark); }
+
+.nav-list { display: none; gap: var(--space-6); align-items: center; }
+.nav-list a {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: color 0.15s var(--ease);
+}
+.nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--forest); }
+@media (min-width: 860px) { .nav-list { display: flex; } .nav-toggle { display: none; } }
+
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--forest-dark);
+  border: 1.5px solid var(--line);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+}
+.nav-panel {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-5) var(--space-5);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.nav-panel.is-open { display: flex; }
+.nav-panel a {
+  padding: var(--space-3) 0;
+  font-size: var(--text-base);
+  font-weight: 500;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 860px) { .nav-panel { display: none !important; } }
+
+.header-cta {
+  display: none;
+}
+@media (min-width: 860px) {
+  .header-cta {
+    display: inline-flex;
+    background: var(--forest);
+    color: #fff;
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: background 0.15s var(--ease), transform 0.15s var(--ease);
+  }
+  .header-cta:hover { background: var(--forest-dark); transform: translateY(-1px); }
+}
+
+/* ---------------------------- Buttons ---------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.9rem 1.75rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-base);
+  font-weight: 600;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease), transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  white-space: nowrap;
+}
+.btn--primary { background: var(--honey); color: var(--forest-dark); }
+.btn--primary:hover { background: var(--honey-dark); color: #fff; transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+.btn--outline { background: transparent; color: inherit; border: 1.5px solid currentColor; }
+.btn--outline:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+.btn--ghost { background: var(--forest-tint); color: var(--forest-dark); }
+.btn--ghost:hover { background: var(--forest); color: #fff; }
+.btn--block { width: 100%; }
+
+/* ---------------------------- Hero ---------------------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-10) var(--space-12);
+}
+.hero__blob {
+  position: absolute;
+  top: -12%;
+  right: -14%;
+  width: 620px;
+  max-width: 90vw;
+  color: var(--forest-tint);
+  z-index: 0;
+}
+.hero .container { position: relative; z-index: 1; }
+.hero__grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+@media (min-width: 860px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }
+
+.hero h1 { margin-bottom: var(--space-5); }
+.hero .lede { max-width: 46ch; margin-bottom: var(--space-6); }
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+.hero__note { font-size: var(--text-sm); color: var(--ink-faint); }
+
+/* Portrait placeholder card */
+.portrait-card {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(155deg, var(--forest) 0%, var(--forest-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(247, 242, 231, 0.85);
+  overflow: hidden;
+}
+.portrait-card svg { width: 34%; opacity: 0.85; }
+.portrait-card__label {
+  position: absolute;
+  bottom: var(--space-5);
+  left: var(--space-5);
+  right: var(--space-5);
+  font-size: var(--text-xs);
+  color: rgba(247, 242, 231, 0.75);
+  border-top: 1px solid var(--line-on-forest);
+  padding-top: var(--space-3);
+}
+
+/* ---------------------------- Trust bar ---------------------------- */
+.trust-bar {
+  background: var(--forest);
+  color: #fff;
+}
+.trust-bar .container {
+  padding-block: var(--space-6);
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 700px) { .trust-bar .container { grid-template-columns: repeat(4, 1fr); } }
+.trust-item { display: flex; align-items: flex-start; gap: var(--space-3); }
+.trust-item svg { flex-shrink: 0; width: 22px; height: 22px; color: var(--honey); margin-top: 2px; }
+.trust-item strong { display: block; font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; }
+.trust-item span { font-size: var(--text-xs); color: rgba(255,255,255,0.72); }
+
+/* ---------------------------- Cards ---------------------------- */
+.card {
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); border-color: transparent; }
+.card__icon {
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--forest-tint);
+  color: var(--forest);
+  margin-bottom: var(--space-4);
+}
+.card__icon svg { width: 24px; height: 24px; }
+.card h3 { margin-bottom: var(--space-2); font-size: var(--text-lg); }
+.card p { font-size: var(--text-sm); }
+.card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--forest);
+}
+.card__link:hover { color: var(--honey-dark); }
+
+/* Section heading pattern */
+.section-head { max-width: 62ch; margin-bottom: var(--space-8); }
+.section-head--center { margin-inline: auto; text-align: center; }
+.section-foot { margin-top: var(--space-8); text-align: center; }
+
+/* ---------------------------- Signature mark ---------------------------- */
+.mark-list { display: flex; flex-direction: column; gap: var(--space-3); }
+.mark-list li { display: flex; align-items: flex-start; gap: var(--space-3); }
+.mark-list svg { flex-shrink: 0; width: 20px; height: 20px; margin-top: 3px; color: var(--honey); }
+
+/* ---------------------------- FAQ (native details/summary) --------- */
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--forest-dark);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary .plus {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--forest);
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+.faq-item[open] summary .plus { background: var(--honey); border-color: var(--honey); color: var(--forest-dark); transform: rotate(45deg); }
+.faq-item .faq-answer { padding-bottom: var(--space-5); max-width: 68ch; }
+.faq-item .faq-answer p { color: var(--ink-soft); font-size: var(--text-base); }
+
+/* ---------------------------- Reviews ---------------------------- */
+.review-card {
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+}
+.review-card__stars { color: var(--honey); display: flex; gap: 2px; margin-bottom: var(--space-4); }
+.review-card__stars svg { width: 16px; height: 16px; }
+.review-card p.quote { color: var(--ink); font-size: var(--text-base); }
+.review-card__meta {
+  margin-top: var(--space-5);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: var(--text-sm);
+}
+.review-card__name { font-weight: 600; color: var(--forest-dark); }
+.placeholder-flag {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: 0.75rem;
+  color: var(--honey-dark);
+  background: rgba(217, 143, 43, 0.12);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---------------------------- Contact ---------------------------- */
+.contact-card {
+  background: var(--forest);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--line-on-forest);
+}
+.contact-row:first-of-type { border-top: none; }
+.contact-row svg { width: 26px; height: 26px; color: var(--honey); flex-shrink: 0; }
+.contact-row a { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; color: #fff; }
+.contact-row a:hover { color: var(--honey); }
+.contact-row .contact-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.65); margin-bottom: 2px; }
+.response-promise {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line-on-forest);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.85);
+}
+
+/* ---------------------------- Footer ---------------------------- */
+.site-footer { background: var(--forest-dark); color: rgba(247, 242, 231, 0.75); }
+.site-footer .container { padding-block: var(--space-10) var(--space-6); }
+.footer-grid { display: grid; gap: var(--space-8); }
+@media (min-width: 700px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; } }
+.site-footer h4 { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; color: #fff; margin-bottom: var(--space-4); letter-spacing: 0.02em; }
+.site-footer .wordmark { color: #fff; }
+.site-footer .wordmark span { color: var(--honey); }
+.site-footer p { color: rgba(247, 242, 231, 0.62); font-size: var(--text-sm); max-width: 40ch; }
+.footer-links { display: flex; flex-direction: column; gap: var(--space-3); }
+.footer-links a { font-size: var(--text-sm); transition: color 0.15s var(--ease); }
+.footer-links a:hover { color: var(--honey); }
+.footer-bottom {
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line-on-forest);
+  display: flex; flex-wrap: wrap; gap: var(--space-4);
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: rgba(247, 242, 231, 0.72);
+}
+.footer-bottom a:hover { color: var(--honey); }
+
+/* ---------------------------- 404 ---------------------------- */
+.error-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: var(--space-12);
+}
+.error-page__code {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 3rem + 6vw, 8rem);
+  color: var(--forest-tint);
+  -webkit-text-stroke: 2px var(--forest);
+  color: transparent;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+/* ---------------------------- Simple page header ---------------------------- */
+.page-hero {
+  padding-block: var(--space-10) var(--space-8);
+  border-bottom: 1px solid var(--line);
+}
+.page-hero .lede { max-width: 60ch; }
+
+/* ---------------------------- Legal text ---------------------------- */
+.legal h2 { font-size: var(--text-lg); margin-top: var(--space-8); margin-bottom: var(--space-3); }
+.legal p, .legal li { color: var(--ink-soft); font-size: var(--text-base); }
+.legal ul { list-style: disc; padding-left: 1.4rem; }
+.legal ul li { margin-bottom: var(--space-2); }
+.legal { max-width: 72ch; }
+
+/* ---------------------------- Utilities ---------------------------- */
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.text-center { text-align: center; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--forest); color: #fff; padding: var(--space-3) var(--space-5);
+  border-radius: 0 0 var(--radius-sm) 0; z-index: 100;
+}
+.skip-link:focus { left: 0; }
+
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="wordmark">Agata Szczęśniak<span>.</span></a>
+      <nav class="nav-list" aria-label="Główna nawigacja">
+        <a href="index.html" aria-current="page">Start</a>
+        <a href="o-mnie.html">O mnie</a>
+        <a href="oferta.html">Oferta</a>
+        <a href="opinie.html">Opinie</a>
+        <a href="faq.html">FAQ</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+      <a href="kontakt.html" class="header-cta">Skontaktuj się</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="navPanel">Menu</button>
+    </div>
+    <nav id="navPanel" class="nav-panel" aria-label="Menu mobilne">
+      <a href="index.html">Start</a>
+      <a href="o-mnie.html">O mnie</a>
+      <a href="oferta.html">Oferta</a>
+      <a href="opinie.html">Opinie</a>
+      <a href="faq.html">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <svg class="hero__blob" viewBox="0 0 600 600" fill="currentColor" aria-hidden="true">
+        <path d="M441 96c66 42 96 134 82 216-14 82-70 150-146 186-76 36-172 40-229-10-57-50-77-152-49-234 28-82 100-146 179-168 79-22 97-32 163 10Z"/>
+      </svg>
+      <div class="container hero__grid">
+        <div>
+          <p class="eyebrow">Agencja Ubezpieczeniowa · Agata Szczęśniak</p>
+          <h1>Ubezpieczenie, które&nbsp;rozumiesz — nie takie, które&nbsp;ktoś Ci wcisnął.</h1>
+          <p class="lede">Pomagam osobom prywatnym, rodzinom i firmom dobrać ochronę dopasowaną do realnego życia — bez żargonu, bez pośpiechu i bez presji zakupowej.</p>
+          <div class="hero__actions">
+            <a href="tel:+48000000000" class="btn btn--primary">Zadzwoń teraz</a>
+            <a href="kontakt.html" class="btn btn--outline" style="color:var(--forest-dark);">Napisz wiadomość</a>
+          </div>
+          <p class="hero__note mt-4">Odpowiadam na wiadomości w ciągu 1–3 dni roboczych.</p>
+        </div>
+        <div class="portrait-card">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <circle cx="12" cy="8.5" r="3.6"/>
+            <path d="M4.5 20c1-4.2 4-6.3 7.5-6.3s6.5 2.1 7.5 6.3"/>
+          </svg>
+          <p class="portrait-card__label">Miejsce na Twoje zdjęcie — dodaj własną fotografię, żeby strona wyglądała jeszcze bardziej osobiście.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust bar -->
+    <section class="trust-bar">
+      <div class="container">
+        <div class="trust-item">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="6.2"/><circle cx="12" cy="12" r="9.3"/></svg>
+          <div><strong>[X] lat</strong><span>doświadczenia w branży ubezpieczeniowej</span></div>
+        </div>
+        <div class="trust-item">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="2.8"/><path d="M3.5 19c.6-3.3 2.8-5 5.5-5s4.9 1.7 5.5 5"/><circle cx="17.5" cy="9" r="2.1"/><path d="M15.8 13.2c2.3.2 4 1.8 4.5 4.3"/></svg>
+          <div><strong>[XX]+</strong><span>obsłużonych klientów indywidualnych i firm</span></div>
+        </div>
+        <div class="trust-item">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+          <div><strong>1–3 dni</strong><span>robocze na odpowiedź na Twoją wiadomość</span></div>
+        </div>
+        <div class="trust-item">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+          <div><strong>Bez presji</strong><span>rzetelne porównanie ofert, decyzja należy do Ciebie</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services teaser -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Czym się zajmuję</p>
+          <h2>Ochrona dopasowana do tego,<br>co dla Ciebie ważne</h2>
+        </div>
+        <div class="grid grid--3">
+          <div class="card">
+            <div class="card__icon">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5v-6h4v6"/></svg>
+            </div>
+            <h3>Dom i mieszkanie</h3>
+            <p>Ochrona murów, wyposażenia i domowego budżetu na wypadek zalania, pożaru czy kradzieży.</p>
+            <a href="oferta.html#dom" class="card__link">Zobacz szczegóły
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="card">
+            <div class="card__icon">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16V12l1.8-4.2A2 2 0 0 1 8.6 6.5h6.8a2 2 0 0 1 1.8 1.3L19 12v4"/><path d="M5 16h14"/><circle cx="8" cy="17.5" r="1.5"/><circle cx="16" cy="17.5" r="1.5"/></svg>
+            </div>
+            <h3>Samochód (OC/AC)</h3>
+            <p>Porównanie ofert kilku towarzystw, żebyś nie przepłacał za polisę, która i tak nie zadziała, kiedy trzeba.</p>
+            <a href="oferta.html#auto" class="card__link">Zobacz szczegóły
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="card">
+            <div class="card__icon">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-8.5"/><path d="M12 11.5C12 8 9.5 6 5.5 6c0 4 2 6.5 6.5 5.5"/><path d="M12 9.5C12 6.5 14 5 17.5 5c0 3.5-1.7 5.7-5.5 4.9"/></svg>
+            </div>
+            <h3>Życie i zdrowie</h3>
+            <p>Zabezpieczenie finansowe najbliższych oraz szybszy dostęp do opieki medycznej, gdy naprawdę jej potrzebujesz.</p>
+            <a href="oferta.html#zycie" class="card__link">Zobacz szczegóły
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="section-foot">
+          <a href="oferta.html" class="btn btn--ghost">Zobacz pełną ofertę</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why me -->
+    <section class="section section--tint">
+      <div class="container grid grid--2">
+        <div>
+          <p class="eyebrow">Dlaczego warto</p>
+          <h2>Podejście, które nie czuje się jak sprzedaż</h2>
+          <p class="mt-4">Wiem, że rozmowy o ubezpieczeniach bywają nużące albo wywołują presję. Staram się, żeby u mnie było inaczej.</p>
+        </div>
+        <ul class="mark-list">
+          <li>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            <span>Tłumaczę warunki polisy zwykłym językiem, zanim cokolwiek podpiszesz.</span>
+          </li>
+          <li>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            <span>Porównuję oferty kilku towarzystw — nie jestem przywiązana do jednej marki.</span>
+          </li>
+          <li>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            <span>Zostaję z Tobą także po podpisaniu umowy — pomagam też przy zgłaszaniu szkód.</span>
+          </li>
+          <li>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            <span>Jeśli oferta Ci nie odpowiada, mówię to wprost — zamiast namawiać na siłę.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ preview -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <p class="eyebrow">Najczęstsze pytania</p>
+          <h2>Zanim zadzwonisz</h2>
+        </div>
+        <div style="max-width:760px;margin-inline:auto;">
+          <details class="faq-item" open>
+            <summary>Czy konsultacja jest płatna?
+              <span class="plus">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer"><p>Nie — pierwsza rozmowa i porównanie ofert są bezpłatne i niezobowiązujące.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Jak długo czekam na przygotowanie oferty?
+              <span class="plus">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer"><p>Zwykle w ciągu 1–3 dni roboczych od rozmowy — w prostszych sprawach często szybciej.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Czy pomagasz też przy zgłaszaniu szkody?
+              <span class="plus">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer"><p>Tak. Zostaję z klientami po podpisaniu umowy i wspieram ich w kontakcie z towarzystwem ubezpieczeniowym.</p></div>
+          </details>
+        </div>
+        <div class="section-foot">
+          <a href="faq.html" class="btn btn--ghost">Zobacz wszystkie pytania</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews teaser -->
+    <section class="section section--tint">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <p class="eyebrow">Opinie klientów</p>
+          <h2>Co mówią osoby, którym pomogłam</h2>
+        </div>
+        <div class="grid grid--2">
+          <div class="review-card">
+            <div class="review-card__stars">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+            </div>
+            <p class="quote">„Agata cierpliwie wytłumaczyła mi różnice między ofertami i pomogła wybrać polisę, która faktycznie pasowała do naszej rodziny.”</p>
+            <div class="review-card__meta">
+              <span class="review-card__name">Anna K.</span>
+              <span>Ubezpieczenie mieszkania</span>
+            </div>
+            <span class="placeholder-flag">Przykładowa opinia — do zamiany</span>
+          </div>
+          <div class="review-card">
+            <div class="review-card__stars">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+            </div>
+            <p class="quote">„Szybki kontakt i konkretne odpowiedzi bez zbędnego owijania w bawełnę. Poleciłbym każdemu, kto chce mieć spokojną głowę.”</p>
+            <div class="review-card__meta">
+              <span class="review-card__name">Marek W.</span>
+              <span>Ubezpieczenie firmy</span>
+            </div>
+            <span class="placeholder-flag">Przykładowa opinia — do zamiany</span>
+          </div>
+        </div>
+        <div class="section-foot">
+          <a href="opinie.html" class="btn btn--ghost">Zobacz więcej opinii</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section section--forest">
+      <div class="container text-center">
+        <h2>Porozmawiajmy o Twoim ubezpieczeniu</h2>
+        <p class="lede" style="margin-inline:auto;max-width:50ch;">Bez presji, bez zobowiązań — po prostu rzeczowa rozmowa o tym, czego potrzebujesz.</p>
+        <div class="hero__actions" style="justify-content:center;margin-top:var(--space-6);">
+          <a href="tel:+48000000000" class="btn btn--primary">Zadzwoń teraz</a>
+          <a href="kontakt.html" class="btn btn--outline">Przejdź do kontaktu</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="wordmark">Agata Szczęśniak<span>.</span></a>
+          <p class="mt-4">Agencja Ubezpieczeniowa Agata Szczęśniak. Ubezpieczenia życiowe, zdrowotne, majątkowe i komunikacyjne — dopasowane do Ciebie.</p>
+        </div>
+        <div>
+          <h4>Nawigacja</h4>
+          <nav class="footer-links">
+            <a href="o-mnie.html">O mnie</a>
+            <a href="oferta.html">Oferta</a>
+            <a href="opinie.html">Opinie</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <nav class="footer-links">
+            <a href="tel:+48000000000">+48 XXX XXX XXX</a>
+            <a href="mailto:kontakt@agataubezpiecza.pl">kontakt@agataubezpiecza.pl</a>
+            <a href="kontakt.html">Dane kontaktowe →</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Agencja Ubezpieczeniowa Agata Szczęśniak</span>
+        <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+// Minimal mobile nav toggle. No tracking, no external calls, no cookies.
+document.addEventListener("DOMContentLoaded", function () {
+  var toggle = document.querySelector(".nav-toggle");
+  var panel = document.querySelector(".nav-panel");
+  if (!toggle || !panel) return;
+
+  toggle.addEventListener("click", function () {
+    var isOpen = panel.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+});
+
+</script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
