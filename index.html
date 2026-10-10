@@ -426,6 +426,8 @@ p + p { margin-top: var(--space-4); }
   font-size: var(--text-sm);
 }
 .review-card__name { font-weight: 600; color: var(--forest-dark); }
+.review-card { display: flex; flex-direction: column; }
+.review-card__meta { margin-top: auto; padding-top: var(--space-5); }
 .placeholder-flag {
   display: inline-block;
   margin-top: var(--space-2);
@@ -734,43 +736,43 @@ p + p { margin-top: var(--space-4); }
     <section class="section section--tint">
       <div class="container">
         <div class="section-head section-head--center">
-          <p class="eyebrow">Opinie klientów</p>
+          <p class="eyebrow">Opinie z Google</p>
           <h2>Co mówią osoby, którym pomogłam</h2>
         </div>
-        <div class="grid grid--2">
+        <div class="grid grid--3">
           <div class="review-card">
-            <div class="review-card__stars">
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+            <div class="review-card__stars" role="img" aria-label="Ocena: 5 na 5 gwiazdek">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
             </div>
-            <p class="quote">„Agata cierpliwie wytłumaczyła mi różnice między ofertami i pomogła wybrać polisę, która faktycznie pasowała do naszej rodziny.”</p>
+            <p class="quote">„P. Agata profesjonalnie i rzetelnie podchodzi do każdego klienta, podpowie i doradzi w zakresie każdej polisy. Rzeczy niemożliwe załatwia od reki. Przemiła i kompetentna osoba. Polecam w 100%.”</p>
             <div class="review-card__meta">
-              <span class="review-card__name">Anna K.</span>
-              <span>Ubezpieczenie mieszkania</span>
+              <span class="review-card__name">Sylwia P.</span>
+              <span>Opinia z Google</span>
             </div>
-            <span class="placeholder-flag">Przykładowa opinia — do zamiany</span>
           </div>
           <div class="review-card">
-            <div class="review-card__stars">
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+            <div class="review-card__stars" role="img" aria-label="Ocena: 5 na 5 gwiazdek">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
             </div>
-            <p class="quote">„Szybki kontakt i konkretne odpowiedzi bez zbędnego owijania w bawełnę. Poleciłbym każdemu, kto chce mieć spokojną głowę.”</p>
+            <p class="quote">„Polecam. Ubezpieczenia szyte na miarę po dokładnej analizie potrzeb. Wszystko zapięte na ostatni guzik. Korzystam od lat i zawsze wszystko jest w najlepszym porządku. Święty spokój w cenie polisy.”</p>
             <div class="review-card__meta">
-              <span class="review-card__name">Marek W.</span>
-              <span>Ubezpieczenie firmy</span>
+              <span class="review-card__name">Tomasz P.</span>
+              <span>Opinia z Google</span>
             </div>
-            <span class="placeholder-flag">Przykładowa opinia — do zamiany</span>
+          </div>
+          <div class="review-card">
+            <div class="review-card__stars" role="img" aria-label="Ocena: 5 na 5 gwiazdek">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.8L12 2.5Z"/></svg>
+            </div>
+            <p class="quote">„Fantastyczne podejście do klienta. Każdy szczegół wytłumaczony sumiennie.”</p>
+            <div class="review-card__meta">
+              <span class="review-card__name">Kowal K.</span>
+              <span>Opinia z Google</span>
+            </div>
           </div>
         </div>
         <div class="section-foot">
-          <a href="opinie.html" class="btn btn--ghost">Zobacz więcej opinii</a>
+          <a href="https://www.google.com/maps/place/Agencja+Ubezpieczeniowa+Agata+Szcz%C4%99%C5%9Bniak/@52.1913175,21.1569714,17z/data=!4m17!1m8!3m7!1s0x471ed31ecef895d5:0x1b98ed47324d11b6!2sJuhas%C3%B3w+6J,+04-784+Warszawa!3b1!8m2!3d52.1913175!4d21.1595463!16s%2Fg%2F11fq2s0sy8!3m7!1s0x471ed392eeb12c9f:0x780a1d1c4b774ec5!8m2!3d52.1913435!4d21.1594852!9m1!1b1!16s%2Fg%2F11ptmg620s" class="btn btn--ghost" target="_blank" rel="noopener noreferrer">Zobacz wszystkie opinie w Google<span class="visually-hidden"> (otwiera się w nowej karcie)</span></a>
         </div>
       </div>
     </section>
