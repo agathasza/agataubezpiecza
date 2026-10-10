@@ -199,7 +199,7 @@ p + p { margin-top: var(--space-4); }
   transition: color 0.15s var(--ease);
 }
 .nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--forest); }
-@media (min-width: 860px) { .nav-list { display: flex; } .nav-toggle { display: none; } }
+@media (min-width: 860px) { .nav-list { display: flex; } }
 
 .nav-toggle {
   display: inline-flex;
@@ -212,6 +212,7 @@ p + p { margin-top: var(--space-4); }
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
 }
+@media (min-width: 860px) { .nav-toggle { display: none; } }
 .nav-panel {
   display: none;
   flex-direction: column;
